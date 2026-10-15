@@ -3,6 +3,7 @@ import { CreateAutoreDto } from './dto/create-autore.dto.js';
 import { UpdateAutoreDto } from './dto/update-autore.dto.js';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { autore } from './entities/autore.entity.js';
+import { Livro } from '../livros/entities/livro.entity.js';
 
 @Injectable()
 export class AutoresService {
@@ -34,7 +35,13 @@ export class AutoresService {
     if(!autores.length){
       throw new NotFoundException('não há autores cadastrados')
     }
-    return autores;
+    const naotemlivro = autores.every((autor) => {
+      return autor.livros.length === 0;
+    })
+    return autores.map(({livros, ...autor}) => ({
+      ...autor,
+      livros: livros.length === 0 ? "nenhum livro cadastrado" : livros
+    }));
   }
 
   async findOne(id: number) {
@@ -47,7 +54,9 @@ export class AutoresService {
     if(!autor){
       throw new NotFoundException('autor não encontrado')
     }
-    return autor;
+    return {...autor,
+      livros: autor.livros.length === 0 ? "nenhum livro cadastrado" : autor.livros
+    };
   }
 
   async update(id: number, updateAutoreDto: UpdateAutoreDto) {
