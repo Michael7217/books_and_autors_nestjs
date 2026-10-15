@@ -29,7 +29,11 @@ export class LivrosService {
   }
 
   async findAll() {
-    const livros = await this.Prisma.livros.findMany() // busca todos
+    const livros = await this.Prisma.livros.findMany({
+      include: {
+        autor: true
+      }
+    }) // busca todos
     if(!livros.length){
       throw new ConflictException('Nenhum livro encontrado')
     }
@@ -38,7 +42,10 @@ export class LivrosService {
 
   async findOne(id: number) {
     const livro = await this.Prisma.livros.findUnique({ //busca unica
-      where: {id}
+      where: {id},
+      include: {
+        autor: true
+      }
     })
     if(!livro){
       throw new NotFoundException('livro não encontrado')
