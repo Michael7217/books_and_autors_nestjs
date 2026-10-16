@@ -3,6 +3,9 @@
 /node_modules
 /build
 
+#db
+dev.db
+
 # TypeScript build cache
 *.tsbuildinfo
 
