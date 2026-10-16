@@ -13,7 +13,7 @@ async function bootstrap() {
     .setTitle('API de autores e livros')
     .setDescription('APi para gerenciar autores e livros')
     .setVersion('1.0.0')
-    .addServer(`http://localhost:${process.env.PORT ?? 3000}`, 'Servidor Local')
+    .addServer('http://localhost:3000}', 'Servidor Local')
     .addBearerAuth() //necessita de autorização
     .build() // comando de criação da documentação
   const document = SwaggerModule.createDocument(app, config);
