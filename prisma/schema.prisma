@@ -27,3 +27,10 @@ model livros {
   autorId Int
   autor autor @relation(fields: [autorId], references: [id], onDelete: Cascade)
 }
+
+model users {
+  id Int @id @default(autoincrement())
+  nome String
+  email String @unique
+  password String
+}
