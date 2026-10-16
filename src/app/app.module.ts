@@ -6,9 +6,11 @@ import { AutoresController } from '../autores/autores.controller.js';
 import { AutoresService } from '../autores/autores.service.js';
 import { LivrosController } from '../livros/livros.controller.js';
 import { LivrosService } from '../livros/livros.service.js';
+import { AuthModule } from '../auth/auth.module.js';
+import { UsersModule } from '../users/users.module.js';
 
 @Module({
-  imports: [PrismaModule],
+  imports: [PrismaModule, AuthModule, UsersModule],
   controllers: [AppController, AutoresController, LivrosController],
   providers: [AppService, AutoresService, LivrosService],
 })
