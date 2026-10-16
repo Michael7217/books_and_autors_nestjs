@@ -14,7 +14,7 @@ export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
 
   async CreateUser(createUserDto: CreateUserDto) {
-    const passwordhash = await bcrypt.hash(createUserDto.password, 10);
+    const passwordhash = await bcrypt.hash(createUserDto.password, 10); //criptografa o password
     return this.prisma.users.create({
       data: { ...createUserDto, password: passwordhash },
       select: { id: true, nome: true, email: true },
