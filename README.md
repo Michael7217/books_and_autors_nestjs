@@ -104,6 +104,27 @@ flowchart LR
     AuthService --> JWT[JWT e bcrypt]
 ```
 
+## Executar com Docker Compose
+
+Na raiz do repositório, crie `project/.env` a partir do exemplo e defina uma chave JWT:
+
+```bash
+cp project/.env.example project/.env
+openssl rand -hex 32
+```
+
+Copie o valor gerado para `SECRET_KEY` em `project/.env`. Depois, suba a API e a interface:
+
+```bash
+docker compose up --build
+```
+
+A interface fica disponível em `http://localhost:5173`, a API em
+`http://localhost:3000` e a documentação Swagger em `http://localhost:3000/docs`.
+O banco SQLite é mantido no volume `project_data`; as migrations são aplicadas
+quando a API inicia. Para encerrar, use `docker compose down`. Para apagar também
+o banco persistido, use `docker compose down -v`.
+
 ### Componentes
 
 - `src/main.ts`: carrega variáveis de ambiente, cria a aplicação NestJS, registra `ValidationPipe`, configura Swagger e inicia o servidor.
